@@ -1,5 +1,5 @@
 "use client";
-
+//imports
 import { cn, configureAssistant, getSubjectColor } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
 import { error } from "console";
@@ -8,7 +8,9 @@ import { set } from "zod";
 import Image from "next/image";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
+import { addToSessionHistory } from "@/lib/actions/companion.actions";
 
+//interfaces
 enum CallStatus {
   INACTIVE = "INACTIVE",
   CONNECTING = "CONNECTING",
@@ -32,6 +34,7 @@ const CompanionComponent = ({
   const [messages, setMessages] = useState<SavedMessage[]>([]);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
+  //lottie animation
   useEffect(() => {
     if (lottieRef) {
       if (isSpeaking) {
@@ -45,7 +48,11 @@ const CompanionComponent = ({
   useEffect(() => {
     const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
 
-    const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
+    const onCallEnd = () => {
+      setCallStatus(CallStatus.FINISHED);
+
+      addToSessionHistory(companionId);
+    };
 
     const onMessage = (message: Message) => {
       if (message.type === "transcript" && message.transcriptType === "final") {
@@ -103,6 +110,7 @@ const CompanionComponent = ({
 
     vapi.stop();
   };
+
   return (
     <section className="flex gap-6 h-[calc(88vh-120px)]  max-sm:flex-col">
       <div className="transcript w-1/4 max-sm:w-full max-sm:order-2 border rounded-lg p-4 bg-white flex flex-col h-full overflow-hidden">
