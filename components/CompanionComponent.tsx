@@ -8,8 +8,12 @@ import { set } from "zod";
 import Image from "next/image";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
-import { addToSessionHistory } from "@/lib/actions/companion.actions";
-
+import {
+  addToSessionHistory,
+  newSessionPermissions,
+} from "@/lib/actions/companion.actions";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 //interfaces
 enum CallStatus {
   INACTIVE = "INACTIVE",

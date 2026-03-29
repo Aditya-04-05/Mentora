@@ -100,7 +100,7 @@ export const getUserCompanions = async (userId: string) => {
     .from("companions")
     .select()
     .eq("author", userId)
-    .order("created_at", { ascending: false })
+    .order("created_at", { ascending: false });
   if (error) {
     throw new Error(error?.message || "Failed to fetch History");
   }
@@ -122,4 +122,70 @@ export const getUserSessions = async (userId: string, limit = 10) => {
   }
 
   return data.map(({ companions }) => companions);
+};
+
+export const newCompanionPermissions = async () => {
+  const { userId, has } = await auth();
+  const supabase = createSupabaseClient();
+
+  let limit = 0;
+
+  if (has({ plan: "premium" })) {
+    return true;
+  } else if (has({ feature: "15_companion_limit" })) {
+    limit = 15;
+  } else if (has({ feature: "3_companion_limit" })) {
+    limit = 3;
+  }
+
+  const { data, error } = await supabase
+    .from("companions")
+    .select("id", { count: "exact" })
+    .eq("author", userId);
+
+  if (error) throw new Error(error?.message);
+
+  const count = data.length;
+  if (limit > count) return true;
+  return false;
+};
+
+export const newSessionPermissions = async () => {
+  const { userId, has } = await auth();
+  // 🚫 Not logged in
+  if (!userId) return false;
+  const supabase = createSupabaseClient();
+
+  // 📅 30 days filter
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  const { count, error } = await supabase
+    .from("session_history")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .gte("created_at", thirtyDaysAgo.toISOString());
+
+  if (error) {
+    throw new Error(error.message || "Failed to fetch session count");
+  }
+
+  const sessionCount = count ?? 0;
+  console.log(sessionCount);
+  // 💎 Premium = unlimited
+  if (has({ plan: "premium" })) {
+    return true;
+  }
+
+  let limit = 0;
+
+  if (has({ plan: "premium" })) {
+    return true;
+  } else if (has({ feature: "30_conversations_month" })) {
+    limit = 30;
+  } else if (has({ feature: "5_conversations_month" })) {
+    limit = 5;
+  }
+
+  return sessionCount < limit;
 };

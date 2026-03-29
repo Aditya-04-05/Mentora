@@ -1,4 +1,7 @@
-import { getCompanion } from "@/lib/actions/companion.actions";
+import {
+  getCompanion,
+  newSessionPermissions,
+} from "@/lib/actions/companion.actions";
 import { getSubjectColor } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -19,7 +22,11 @@ const CompanionSession = async ({ params }: CompanionSessionPageProps) => {
   if (!name) {
     redirect("/companions");
   }
-
+  const lim = await newSessionPermissions();
+  console.log(lim);
+  if (!lim) {
+    redirect("/upgrade");
+  }
   return (
     <main>
       <article className="flex rounded-border justify-between p-6 max-md:flex-col">
@@ -48,7 +55,12 @@ const CompanionSession = async ({ params }: CompanionSessionPageProps) => {
           {duration} minutes
         </div>
       </article>
-      <CompanionComponent  {... companion} companionId= {id} userName={user.firstName!} userImage ={user.imageUrl!} />
+      <CompanionComponent
+        {...companion}
+        companionId={id}
+        userName={user.firstName!}
+        userImage={user.imageUrl!}
+      />
     </main>
   );
 };
