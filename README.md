@@ -1,37 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Mentora
 
-First, run the development server:
+Mentora is an AI-powered learning companion platform built to make studying more interactive, personalized, and engaging. As a 3rd year Computer Science Engineering student, I created this project to combine modern full-stack development with practical AI use cases in education.
+
+
+## Demo
+
+Link: https://mentora-phi.vercel.app
+
+## Features
+
+`🔍 Companion Discovery`
+- Browse companions using interactive UI cards
+- Search companions by keywords
+- Filter by subject categories
+
+`✍️ Companion Creation & Submission`
+- Create new companions with structured forms
+- Fields include title, description, subject, etc.
+- Client-side validation and handling
+
+`📄 Detail & History Pages`
+- Dedicated companion detail pages
+- “My Journey” section to track progress
+- View created companions and activity
+
+`🔐 Authentication System`
+- Secure sign-in functionality provided by Clerk
+- User Session Management
+- Plan-Based Access Control (Free vs Premium Features) 
+- Built-in billing and subscription handling
+
+`⚙️ Backend Integration`
+- Supabase for database & authentication
+- CRUD operations via actions
+- API routes for companion management
+
+`🎨 UI System`
+- Built With ShadCN UI components
+- Reusable UI components (buttons, inputs, forms)
+- Responsive and accessible design
+- Clean navigation with Navbar
+
+`⚠️ Error Handling & UX`
+- Centralized error handling
+- Integrated Sentry for real-time error tracking
+- Improved debugging and production monitoring
+- Consistent styling and smooth UX
+## Run Locally
+
+Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/Aditya-04-05/Mentora
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Go to the project directory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd companion
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Install dependencies
 
-## Learn More
+```bash
+  npm install
+```
+Create .env.local and add api keys
+```bash
+Supabase, Clerk, Vapi Ai Keys
+```
+Start the server
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+  npm run start or npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Screenshots
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Mentora
