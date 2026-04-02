@@ -79,3 +79,11 @@ Start the server
 
 ## Screenshots
 
+
+<img width="1602" height="850" alt="image" src="https://github.com/user-attachments/assets/ae17dda2-0569-4161-b39f-928c74011f17" />
+
+<img width="1793" height="957" alt="image" src="https://github.com/user-attachments/assets/30480e7d-3c4e-477e-ac81-12b9639f1b71" />
+
+<img width="654" height="861" alt="image" src="https://github.com/user-attachments/assets/e66e48db-7f58-45f0-8ddc-bc4f3f58981e" />
+
+<img width="1394" height="893" alt="image" src="https://github.com/user-attachments/assets/c1dad7c0-da61-4f53-9eec-18952da055cd" />
